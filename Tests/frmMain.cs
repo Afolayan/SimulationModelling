@@ -21,7 +21,7 @@ namespace Tests
 
             var log = "";
 
-            log += DoGfsr();
+            //log += DoGfsr();
             richTextBox.Text = log;
         }
 
@@ -66,7 +66,7 @@ namespace Tests
         }
 
         private static string DoGfsr(){
-            GeneralizedFeedbackShiftRegister register = new GeneralizedFeedbackShiftRegister("11111", 5, 3, 4, 6);
+            GeneralizedFeedbackShiftRegister register = new GeneralizedFeedbackShiftRegister("11111111", 8, 3, 4, 6);
 
             string log = "";
             var generateWi = register.GenerateWi(20048);
