@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,8 @@ namespace Tests{
     public partial class frmMain : Form{
         public frmMain(){
             InitializeComponent();
-            //Console.WriteLine("seed-> " + Int64.Parse("111111111111111001111111111111"));
+
+            //"111100011011101010000100101100111110001"
         }
 
         private void test_LCG_randomToolStripMenuItem_Click(object sender, EventArgs e){
@@ -56,24 +58,28 @@ namespace Tests{
 
         private void generalizedShiftFeedbackRegisterToolStripMenuItem_Click(object sender, EventArgs e){
             string logOutPut = "";
-            //Gfsr gfsr = new Gfsr("11111", 5, 3, 4, 6);
-            var gfsr = new Gfsr("11111111111111111111111111111110", 32, 3, 31, 10);
+            //Gfsr1 gfsr = new Gfsr1("11111", 5, 3, 4, 6);
+            //Gfsr1 gfsr = new Gfsr1("11111111", 8, 5, 7, 7);
+            var gfsr = new Gfsr1("11110100001001000000", 20, 9, 8, 8);
             int[] distribution = new int[100];
             int i = 0;
-            while (i < 100){
-                Console.WriteLine("Value->" + gfsr.Next());
+            //while (i < 100000){
+            while (i < 1000000){
+                var intValue = gfsr.Next();
+                Console.WriteLine("Value->" +intValue);
                 var currentDouble = gfsr.NextDouble() * 100;
-                int possibleIndex = (int) System.Math.Ceiling(currentDouble);
+                var possibleIndex = (int) System.Math.Ceiling(currentDouble);
                 logOutPut += currentDouble + " == " + possibleIndex + "\n";
-                Console.WriteLine(@"{0} == {1}->", currentDouble, possibleIndex);
+                //Console.WriteLine(@"{0} == {1}->", currentDouble, possibleIndex);
                 distribution[possibleIndex]++;
                 i++;
+
             }
 
             var distributionLogger = new StringBuilder("");
             var sum = 0.0;
             for (var index = 0; index < distribution.Length; index++){
-                var distributionString = (index - 1) + ", " + distribution[index];
+                var distributionString = index + ", " + distribution[index];
                 distributionLogger.Append(distributionString);
                 distributionLogger.Append("\n");
 
@@ -85,8 +91,9 @@ namespace Tests{
                 Console.WriteLine(@"{0}==={1}", index, dist);
             }
 
-            Console.WriteLine(@"sum==={0}", sum);
-            logOutPut += gfsr.getLogs();
+            File.WriteAllText("distribution.csv", distributionLogger.ToString());
+            //Console.WriteLine(@"sum==={0}", sum);
+            
             richTextBox.Text = logOutPut;
         }
     }

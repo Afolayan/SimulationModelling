@@ -44,6 +44,7 @@
     <Compile Include="RNG\Enums.cs" />
     <Compile Include="RNG\GFSR\GeneralizedFeedbackShiftRegister.cs" />
     <Compile Include="RNG\GFSR\GFSR.cs" />
+    <Compile Include="RNG\GFSR\Gfsr1.cs" />
     <Compile Include="RNG\GFSR\LSFR.cs" />
     <Compile Include="RNG\LCG\Random.cs" />
     <Compile Include="RNG\LCG\URandom.cs" />
